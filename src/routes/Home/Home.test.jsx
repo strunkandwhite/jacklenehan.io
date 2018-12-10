@@ -2,6 +2,10 @@ import React from 'react'
 import { mount } from 'enzyme'
 import Home from '.'
 
+jest.mock('Src/helpers/background-helpers', () => ({
+  calculateBackgroundTranslateY: () => 666,
+}))
+
 describe('Home', () => {
   let wrapper
 
@@ -19,25 +23,6 @@ describe('Home', () => {
   describe('render', () => {
     it('renders without crashing', () => {
       app()
-    })
-  })
-
-  describe('calculating background position', () => {
-    it('calculates the position correctly', () => {
-      const state = {
-        chicagoImageOverflow: 240,
-        fromSectionHeight: 720,
-        fromSectionScrollStart: 444,
-        innerHeight: 954,
-      }
-      const scrollY = 1300
-
-      expect(
-        app()
-          .setState(state)
-          .instance()
-          .calculateBackgroundTranslateY(scrollY),
-      ).toEqual(-123)
     })
   })
 
