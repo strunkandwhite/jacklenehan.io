@@ -89,18 +89,18 @@ export default class Home extends Component {
         </section>
         <section className="content-holder intro-holder">
           <section className="content intro">
-            <h2 className="navy">I&apos;m a Javascript developer, project manager, and scrum master.</h2>
+            <h2 className="navy">I&apos;m an engineering manager, Javascript developer, and writer.</h2>
             <div className="venn">
               <div className="head" />
               <svg width="300" height="300" viewBox="0 0 300 300">
                 <g>
                   <circle cx="90" cy="210" r="90" fill="rgba(79, 124, 172, 1)" />
                   <text x="74" y="217">
-                    pm
+                    em
                   </text>
                   <circle cx="210" cy="210" r="90" fill="rgba(230, 175, 46, 1)" />
                   <text x="186" y="217">
-                    agile
+                    write
                   </text>
                   <circle cx="150" cy="100" r="90" fill="rgba(244, 91, 105, 1)" />
                   <text x="132" y="107">
@@ -116,7 +116,7 @@ export default class Home extends Component {
         <section ref={this.fromElement} className="content-holder from-holder">
           <ParallaxImage src={chicago} translateY={backgroundTranslateY} />
           <section className="content from">
-            <h1 className="shadow">(I&apos;m from Chicago.)</h1>
+            <h1 className="shadow">(I live in Chicago.)</h1>
           </section>
         </section>
         <section className="content-holder about-holder">
