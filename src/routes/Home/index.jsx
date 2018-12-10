@@ -1,6 +1,8 @@
 import React, { createRef, Component } from 'react'
 
-import ParallaxImage from './components/ParallaxImage'
+import ParallaxImage from 'Src/routes/Home/components/ParallaxImage'
+
+import { calculateBackgroundTranslateY } from 'Src/helpers/background-helpers'
 
 import starRow from './assets/star-row.svg'
 import flag from './assets/chicago-flag.svg'
@@ -29,6 +31,11 @@ export default class Home extends Component {
     this.handleResize()
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.handleResize)
+  }
+
   handleScroll = () => {
     if (!this.ticking) {
       window.requestAnimationFrame(this.animationFrame)
@@ -38,7 +45,15 @@ export default class Home extends Component {
 
   animationFrame = () => {
     this.ticking = false
-    const backgroundTranslateY = this.calculateBackgroundTranslateY(window.scrollY)
+    const { scrollY } = window
+    const { fromSectionScrollStart, fromSectionHeight, innerHeight, chicagoImageOverflow } = this.state
+    const backgroundTranslateY = calculateBackgroundTranslateY({
+      fromSectionScrollStart,
+      fromSectionHeight,
+      innerHeight,
+      chicagoImageOverflow,
+      scrollY,
+    })
     this.setState({
       backgroundTranslateY,
     })
@@ -57,15 +72,6 @@ export default class Home extends Component {
       fromSectionHeight,
       chicagoImageOverflow,
     })
-  }
-
-  calculateBackgroundTranslateY = (scrollY) => {
-    const { fromSectionScrollStart, fromSectionHeight, innerHeight, chicagoImageOverflow } = this.state
-    const progressPercentage = (scrollY - fromSectionScrollStart) / (fromSectionHeight + innerHeight)
-    const boundedPercentage = Math.max(0, Math.min(1, progressPercentage))
-    const backgroundTranslateY = Math.round(boundedPercentage * chicagoImageOverflow * -1)
-
-    return backgroundTranslateY
   }
 
   render() {
