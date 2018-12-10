@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { createRef, Component } from 'react'
 
 import ParallaxImage from './components/ParallaxImage'
 
@@ -9,15 +9,18 @@ import chicago from './assets/chicago.jpg'
 const CHICAGO_IMAGE_HEIGHT = 960
 
 export default class Home extends Component {
-  state = {
-    backgroundTranslateY: 0,
-    fromSectionScrollStart: 0,
-    chicagoImageOverflow: 0,
-    fromSectionHeight: 0,
-    innerHeight: 0,
+  constructor(props) {
+    super(props)
+    this.ticking = false
+    this.fromElement = createRef()
+    this.state = {
+      backgroundTranslateY: 0,
+      fromSectionScrollStart: 0,
+      chicagoImageOverflow: 0,
+      fromSectionHeight: 0,
+      innerHeight: 0,
+    }
   }
-
-  ticking = false
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -43,8 +46,9 @@ export default class Home extends Component {
 
   handleResize = () => {
     const { innerHeight } = window
-    const fromSectionScrollStart = this.fromElement.offsetTop - innerHeight
-    const fromSectionHeight = this.fromElement.offsetHeight
+    const { offsetHeight, offsetTop } = this.fromElement.current
+    const fromSectionScrollStart = offsetTop - innerHeight
+    const fromSectionHeight = offsetHeight
     const chicagoImageOverflow = CHICAGO_IMAGE_HEIGHT - fromSectionHeight
 
     this.setState({
@@ -103,12 +107,7 @@ export default class Home extends Component {
             </div>
           </section>
         </section>
-        <section
-          ref={(node) => {
-            this.fromElement = node
-          }}
-          className="content-holder from-holder"
-        >
+        <section ref={this.fromElement} className="content-holder from-holder">
           <ParallaxImage src={chicago} translateY={backgroundTranslateY} />
           <section className="content from">
             <h1 className="shadow">(I&apos;m from Chicago.)</h1>
