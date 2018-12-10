@@ -1,9 +1,12 @@
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
 language: node_js
 node_js:
   - 'node'
 cache: yarn
-install:
-  - pip install awscli
+before_install:
+  - pip install --user awscli
 jobs:
   include:
     - stage: test
