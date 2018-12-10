@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - 'node'
 cache: yarn
+install:
+  - pip install awscli
 jobs:
   include:
     - stage: test
@@ -9,3 +11,18 @@ jobs:
       after_success: 'yarn coveralls'
     - stage: build
       script: yarn build
+    - stage: deploy
+      script: yarn build
+      deploy:
+        on:
+          branch: master
+        provider: s3
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: aws-website-jacklenehanio-6bi7y
+        skip_cleanup: true
+        local_dir: build
+        cache_control: 'max-age=21600'
+      after_deploy:
+        - aws configure set preview.cloudfront true
+        - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
