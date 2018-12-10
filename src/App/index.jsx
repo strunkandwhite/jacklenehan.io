@@ -1,46 +1,14 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import Title from 'Src/components/Title'
-import { userActions } from 'Src/redux/user'
+import Home from '../routes/Home'
+import paths from '../routes/paths'
 
-class App extends Component {
-  static propTypes = {
-    user: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-    setUserName: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    user: {
-      name: 'user',
-    },
-  }
-
-  componentDidMount() {
-    const { setUserName } = this.props
-
-    setUserName('Jack')
-  }
-
-  render() {
-    const {
-      user: { name },
-    } = this.props
-
-    return <Title title={`Hello ${name}`} />
-  }
-}
-
-const mapStateToProps = (state) => ({
-  user: state.user,
-})
-
-export default connect(
-  mapStateToProps,
-  {
-    setUserName: userActions.setUserName,
-  },
-)(App)
+export default () => (
+  <Router>
+    <Switch>
+      <Route exact path={paths.home} component={Home} />
+      <Redirect to={paths.home} />
+    </Switch>
+  </Router>
+)
