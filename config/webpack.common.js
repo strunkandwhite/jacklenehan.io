@@ -36,7 +36,7 @@ module.exports = {
     filename: '[name].bundle.js',
   },
   resolve: {
-    modules: ['src', 'libs', 'node_modules'],
+    modules: ['src', 'node_modules'],
     extensions: ['.js', '.jsx', '.css', '.scss'],
     alias: {
       Src: path.resolve(__dirname, '../src'),
@@ -57,53 +57,33 @@ module.exports = {
         ],
       },
       {
-        test: /^((?!\.module).)*scss/,
-        use: ['css-hot-loader'].concat(
-          extractGlobal.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: true,
-                },
-              },
-              {
-                loader: 'sass-loader',
-                options: {
-                  includePaths: ['src', 'node_modules'],
-                },
-              },
-              'postcss-loader',
-            ],
-          }),
-        ),
+        test: /\.(svg|png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
       },
       {
-        test: /\.module.scss$/,
-        use: ['css-hot-loader'].concat(
-          extractModules.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  modules: true,
-                  importLoaders: 2,
-                  localIdentName: '[name]_[local]_[hash:base64:5]',
-                  sourceMap: true,
-                },
+        test: /\.*scss/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true,
               },
-              {
-                loader: 'sass-loader',
-                options: {
-                  includePaths: ['src', 'node_modules', 'bower_components'],
-                },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: ['src'],
               },
-              'postcss-loader',
-            ],
-          }),
-        ),
+            },
+          ],
+        }),
       },
     ],
   },
@@ -111,8 +91,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './assets/index.html',
       filename: 'index.html',
-      // favicon: './assets/favicon.ico',
-      inject: false,
+      favicon: './assets/favicon.ico',
     }),
     extractGlobal,
     extractModules,

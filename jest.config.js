@@ -3,6 +3,7 @@ module.exports = {
   moduleNameMapper: {
     '^Src(.*)$': '<rootDir>/src$1',
     '\\.(css|scss)$': 'identity-obj-proxy',
+    '\\.(svg|jpg)$': '<rootDir>/src/test-helpers/__mocks__/file-mock.js',
   },
   roots: ['<rootDir>/src/'],
   coveragePathIgnorePatterns: [

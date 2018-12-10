@@ -1,0 +1,251 @@
+@import '_colors.scss';
+@import '_animations.scss';
+
+html,
+body {
+  font: 300 36px Lato, sans-serif;
+  background: $navy;
+  text-align: center;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 200%;
+}
+
+h2 {
+  font-size: 156%;
+}
+
+h3 {
+  font-size: 140%;
+}
+
+p,
+ul,
+span {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+a {
+  color: $gray;
+  text-decoration: none;
+
+  &:hover {
+    color: $straw;
+  }
+}
+
+.content-holder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &.hello-holder {
+    background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 50%);
+  }
+
+  &.intro-holder,
+  &.contact-holder,
+  &.colophon-holder {
+    background: white;
+  }
+
+  &.from-holder {
+    position: relative;
+    overflow: hidden;
+
+    .parallax {
+      min-width: 100%;
+      position: absolute;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      z-index: 0;
+    }
+  }
+}
+
+.content {
+  max-width: 25rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 2rem 1rem;
+
+  &.hello {
+    flex-direction: column;
+    height: 100vh;
+    min-height: 14rem;
+    padding: 0;
+
+    .portrait {
+      width: 300px;
+      height: 300px;
+      display: block;
+      border-radius: 50%;
+      background: url('../assets/self-bw.jpg');
+      background-size: cover;
+    }
+
+    h1 {
+      animation: 1s ease-out 0s 1 slideUpAndFadeIn;
+    }
+  }
+
+  &.intro {
+    text-align: left;
+
+    .venn {
+      width: 300px;
+      height: 300px;
+      margin-left: 1rem;
+      position: relative;
+
+      .head {
+        position: absolute;
+        background: url('../assets/self-bw.jpg') -25px 0;
+        background-size: 90px 90px;
+        top: 40px;
+        left: 0;
+        width: 40px;
+        height: 60px;
+        display: block;
+        animation: 2s linear infinite reverse wiggle;
+      }
+
+      g {
+        isolation: isolate;
+      }
+
+      circle {
+        mix-blend-mode: soft-light;
+      }
+
+      text {
+        fill: white;
+        font-size: 24px;
+      }
+    }
+  }
+
+  &.from {
+    z-index: 1;
+    height: 20rem;
+
+    h1 {
+      font-weight: 300;
+    }
+  }
+
+  &.about {
+    flex-direction: column;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+
+    img.breaker {
+      width: 50px;
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  &.contact {
+    flex-direction: column;
+    align-items: stretch;
+
+    ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+
+      a {
+        width: 3.556rem;
+        padding-top: 3.889rem;
+        display: block;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        background-size: 3.556rem 3.556rem;
+        font-size: 66%;
+        transition: all 0.25s ease-out;
+
+        &:hover {
+          transform: translateY(-10px);
+        }
+
+        &.linked-in {
+          background-image: url('../assets/linked-in-mark.jpg');
+        }
+
+        &.github {
+          background-image: url('../assets/github-mark.jpg');
+        }
+
+        &.gmail {
+          background-image: url('../assets/gmail-mark.jpg');
+        }
+      }
+    }
+  }
+
+  &.colophon {
+    padding: 1rem 1rem 0.5rem 1rem;
+    flex-direction: column;
+
+    p {
+      font-size: 16px;
+    }
+
+    img {
+      width: 50px;
+      display: block;
+      border: 1px solid $gray;
+    }
+  }
+}
+
+.gray {
+  color: $gray;
+}
+
+.navy {
+  color: $navy;
+}
+
+.straw {
+  color: $straw;
+}
+
+.shadow {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 880px) {
+  .content.intro {
+    flex-wrap: wrap;
+    text-align: center;
+
+    .venn {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  body,
+  html {
+    font-size: 24px;
+  }
+}
