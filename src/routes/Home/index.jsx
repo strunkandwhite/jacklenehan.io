@@ -152,7 +152,12 @@ export default class Home extends Component {
                 </a>
               </li>
               <li>
-                <a className="github" href="https://github.com/jacklenehan" target="_blank" rel="noopener noreferrer">
+                <a
+                  className="github"
+                  href="https://github.com/strunkandwhite"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   GitHub
                 </a>
               </li>
