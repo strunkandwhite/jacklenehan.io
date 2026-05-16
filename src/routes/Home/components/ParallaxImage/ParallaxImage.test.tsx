@@ -13,6 +13,6 @@ describe('ParallaxImage', () => {
   it('applies the translateY as a transform style', () => {
     const { container } = render(<ParallaxImage src="/foo.jpg" translateY={123} />)
     const img = container.querySelector('img')
-    expect(img.style.transform).toBe('translateY(123px)')
+    expect((img as HTMLImageElement).style.transform).toBe('translateY(123px)')
   })
 })

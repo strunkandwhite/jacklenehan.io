@@ -13,7 +13,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "next lint",
-    "format": "prettier --write 'src/**/*.{js,jsx}' 'app/**/*.{js,jsx}'"
+    "format": "prettier --write 'src/**/*.{ts,tsx}' 'app/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "next": "^16.0.0",
@@ -25,13 +25,21 @@
     "overrides": {
       "postcss": ">=8.5.10"
     },
-    "onlyBuiltDependencies": ["sharp", "@parcel/watcher", "unrs-resolver"]
+    "onlyBuiltDependencies": [
+      "sharp",
+      "@parcel/watcher",
+      "unrs-resolver"
+    ]
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.8.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9.27.0",
     "eslint-config-next": "^16.0.0",
     "eslint-config-prettier": "^10.1.8",
@@ -39,6 +47,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "prettier": "^3.8.3"
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   }
 }

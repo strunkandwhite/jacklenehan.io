@@ -1,6 +1,13 @@
 import Image from 'next/image'
+import { RefObject } from 'react'
 
-const ParallaxImage = ({ src, translateY, imageRef = null }) => (
+interface ParallaxImageProps {
+  src: string
+  translateY: number
+  imageRef?: RefObject<HTMLImageElement | null> | null
+}
+
+const ParallaxImage = ({ src, translateY, imageRef = null }: ParallaxImageProps) => (
   <Image
     ref={imageRef}
     src={src}

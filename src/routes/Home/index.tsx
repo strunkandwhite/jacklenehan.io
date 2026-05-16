@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createRef, Component } from 'react'
+import { Component, createRef } from 'react'
 
 import ParallaxImage from 'Src/routes/Home/components/ParallaxImage'
 import { calculateBackgroundTranslateY } from 'Src/helpers/background-helpers'
@@ -9,19 +9,25 @@ const starRow = '/star-row.svg'
 const flag = '/chicago-flag.svg'
 const chicago = '/chicago-2.jpg'
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.ticking = false
-    this.fromElement = createRef()
-    this.parallaxImage = createRef()
-    this.state = {
-      backgroundTranslateY: 0,
-      fromSectionScrollStart: 0,
-      chicagoImageOverflow: 0,
-      fromSectionHeight: 0,
-      innerHeight: 0,
-    }
+interface HomeState {
+  backgroundTranslateY: number
+  fromSectionScrollStart: number
+  chicagoImageOverflow: number
+  fromSectionHeight: number
+  innerHeight: number
+}
+
+export default class Home extends Component<{}, HomeState> {
+  ticking = false
+  fromElement = createRef<HTMLElement>()
+  parallaxImage = createRef<HTMLImageElement>()
+
+  state: HomeState = {
+    backgroundTranslateY: 0,
+    fromSectionScrollStart: 0,
+    chicagoImageOverflow: 0,
+    fromSectionHeight: 0,
+    innerHeight: 0,
   }
 
   componentDidMount() {
@@ -61,7 +67,7 @@ export default class Home extends Component {
 
   handleResize = () => {
     const { innerHeight } = window
-    const { offsetHeight, offsetTop } = this.fromElement.current
+    const { offsetHeight, offsetTop } = this.fromElement.current!
     const fromSectionScrollStart = offsetTop - innerHeight
     const fromSectionHeight = offsetHeight
     const imageHeight = this.parallaxImage.current?.offsetHeight ?? fromSectionHeight

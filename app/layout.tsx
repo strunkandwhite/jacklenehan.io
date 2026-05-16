@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Lato } from 'next/font/google'
 import '../src/stylesheets/styles.scss'
 
@@ -13,7 +14,7 @@ export const metadata = {
   description: 'Personal website of Jack Lenehan',
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={lato.variable}>
       <body>{children}</body>
