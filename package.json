@@ -23,6 +23,9 @@
     "sass": "^1.99.0"
   },
   "pnpm": {
+    "overrides": {
+      "postcss": ">=8.5.10"
+    },
     "onlyBuiltDependencies": ["sharp", "@parcel/watcher", "unrs-resolver"]
   },
   "devDependencies": {
