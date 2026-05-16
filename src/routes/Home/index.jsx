@@ -1,20 +1,20 @@
+'use client'
+
 import React, { createRef, Component } from 'react'
 
 import ParallaxImage from 'Src/routes/Home/components/ParallaxImage'
-
 import { calculateBackgroundTranslateY } from 'Src/helpers/background-helpers'
 
-import starRow from './assets/star-row.svg'
-import flag from './assets/chicago-flag.svg'
-import chicago from './assets/chicago.jpg'
-
-const CHICAGO_IMAGE_HEIGHT = 960
+const starRow = '/star-row.svg'
+const flag = '/chicago-flag.svg'
+const chicago = '/chicago-2.jpg'
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
     this.ticking = false
     this.fromElement = createRef()
+    this.parallaxImage = createRef()
     this.state = {
       backgroundTranslateY: 0,
       fromSectionScrollStart: 0,
@@ -64,7 +64,8 @@ export default class Home extends Component {
     const { offsetHeight, offsetTop } = this.fromElement.current
     const fromSectionScrollStart = offsetTop - innerHeight
     const fromSectionHeight = offsetHeight
-    const chicagoImageOverflow = CHICAGO_IMAGE_HEIGHT - fromSectionHeight
+    const imageHeight = this.parallaxImage.current?.offsetHeight ?? fromSectionHeight
+    const chicagoImageOverflow = imageHeight - fromSectionHeight
 
     this.setState({
       innerHeight,
@@ -114,7 +115,7 @@ export default class Home extends Component {
           </section>
         </section>
         <section ref={this.fromElement} className="content-holder from-holder">
-          <ParallaxImage src={chicago} translateY={backgroundTranslateY} />
+          <ParallaxImage src={chicago} translateY={backgroundTranslateY} imageRef={this.parallaxImage} />
           <section className="content from">
             <h1 className="shadow">(I live in Chicago.)</h1>
           </section>

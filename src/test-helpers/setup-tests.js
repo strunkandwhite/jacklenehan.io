@@ -1,8 +1,4 @@
-import { configure } from 'enzyme'
-
-import Adapter from 'enzyme-adapter-react-16'
-
-configure({ adapter: new Adapter() })
+import '@testing-library/jest-dom'
 
 process.on('unhandledRejection', (err) => {
   throw err

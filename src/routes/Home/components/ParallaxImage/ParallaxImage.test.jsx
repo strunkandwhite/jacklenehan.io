@@ -1,30 +1,18 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import ParallaxImage from '.'
 
 describe('ParallaxImage', () => {
-  let props
-  let wrapper
-
-  const parallaxImage = () => {
-    if (!wrapper) {
-      wrapper = shallow(<ParallaxImage {...props} />)
-    }
-    return wrapper
-  }
-
-  beforeEach(() => {
-    props = {
-      src: 'foo.jpg',
-      translateY: 123,
-    }
-
-    wrapper = undefined
+  it('renders an image with the correct src', () => {
+    const { container } = render(<ParallaxImage src="/foo.jpg" translateY={123} />)
+    const img = container.querySelector('img')
+    expect(img).toBeInTheDocument()
+    expect(img).toHaveAttribute('src', '/foo.jpg')
   })
 
-  describe('render', () => {
-    it('renders without crashing', () => {
-      parallaxImage()
-    })
+  it('applies the translateY as a transform style', () => {
+    const { container } = render(<ParallaxImage src="/foo.jpg" translateY={123} />)
+    const img = container.querySelector('img')
+    expect(img.style.transform).toBe('translateY(123px)')
   })
 })

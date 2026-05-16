@@ -1,9 +1,9 @@
-@import '_colors.scss';
-@import '_animations.scss';
+@use 'colors' as *;
+@use 'animations';
 
 html,
 body {
-  font: 300 36px Lato, sans-serif;
+  font: 300 36px var(--font-lato), sans-serif;
   background: $navy;
   text-align: center;
   color: white;
@@ -69,10 +69,10 @@ a {
     overflow: hidden;
 
     .parallax {
-      min-width: 100%;
+      width: 100%;
+      height: auto;
       position: absolute;
-      left: 50%;
-      transform: translate3d(-50%, 0, 0);
+      left: 0;
       z-index: 0;
     }
   }
@@ -97,7 +97,7 @@ a {
       height: 300px;
       display: block;
       border-radius: 50%;
-      background: url('../assets/self-bw.jpg');
+      background: url('/self-bw.jpg');
       background-size: cover;
     }
 
@@ -117,7 +117,7 @@ a {
 
       .head {
         position: absolute;
-        background: url('../assets/self-bw.jpg') -25px 0;
+        background: url('/self-bw.jpg') -25px 0;
         background-size: 90px 90px;
         top: 40px;
         left: 0;
@@ -186,15 +186,15 @@ a {
         }
 
         &.linked-in {
-          background-image: url('../assets/linked-in-mark.jpg');
+          background-image: url('/linked-in-mark.jpg');
         }
 
         &.github {
-          background-image: url('../assets/github-mark.jpg');
+          background-image: url('/github-mark.jpg');
         }
 
         &.gmail {
-          background-image: url('../assets/gmail-mark.jpg');
+          background-image: url('/gmail-mark.jpg');
         }
       }
     }
