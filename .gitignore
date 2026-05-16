@@ -7,6 +7,7 @@ yarn-error.log*
 
 # Built assets
 build/
+.next/
 
 # Dependency directories
 node_modules/
@@ -14,6 +15,7 @@ node_modules/
 *.swp
 *.swo
 .DS_Store
+pnpm-debug.log*
 
 # test coverage
 coverage/

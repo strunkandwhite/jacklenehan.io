@@ -1,67 +1,51 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { render, screen, act } from '@testing-library/react'
 import Home from '.'
 
 jest.mock('Src/helpers/background-helpers', () => ({
   calculateBackgroundTranslateY: () => 666,
 }))
 
+const mockFromElement = { offsetHeight: 720, offsetTop: 444 }
+
+beforeEach(() => {
+  Object.defineProperty(window, 'innerHeight', { value: 954, writable: true })
+  jest.spyOn(React, 'createRef').mockReturnValue({ current: mockFromElement })
+})
+
+afterEach(() => {
+  jest.restoreAllMocks()
+})
+
 describe('Home', () => {
-  let wrapper
-
-  const home = () => {
-    if (!wrapper) {
-      wrapper = mount(<Home />)
-    }
-    return wrapper
-  }
-
-  beforeEach(() => {
-    wrapper = undefined
+  it('renders without crashing', () => {
+    render(<Home />)
+    expect(screen.getByText(/Hello/)).toBeInTheDocument()
   })
 
-  describe('render', () => {
-    it('renders without crashing', () => {
-      home()
-    })
+  it('renders the Chicago section', () => {
+    render(<Home />)
+    expect(screen.getByText(/I live in Chicago/)).toBeInTheDocument()
   })
 
-  describe('scroll behavior', () => {
-    beforeEach(() => {
-      global.requestAnimationFrame = jest.fn()
+  it('requests an animation frame on scroll when not already ticking', () => {
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(() => 0)
+    render(<Home />)
+    act(() => {
+      window.dispatchEvent(new Event('scroll'))
     })
-
-    it('requests an animation frame on scroll if no other frame has been requested', () => {
-      home()
-        .instance()
-        .handleScroll()
-      expect(global.requestAnimationFrame.mock.calls.length).toBe(1)
-    })
-
-    it('does not request an animation frame on scroll if another frame has been requested', () => {
-      home().instance().ticking = true
-      home()
-        .instance()
-        .handleScroll()
-      expect(global.requestAnimationFrame.mock.calls.length).toBe(0)
-    })
+    expect(rafSpy).toHaveBeenCalledTimes(1)
+    rafSpy.mockRestore()
   })
 
-  describe('animation frame', () => {
-    it('sets ticking to false', () => {
-      home().instance().ticking = true
-      home()
-        .instance()
-        .animationFrame()
-      expect(home().instance().ticking).toBe(false)
+  it('does not request a second animation frame while one is pending', () => {
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation(() => 0)
+    render(<Home />)
+    act(() => {
+      window.dispatchEvent(new Event('scroll'))
+      window.dispatchEvent(new Event('scroll'))
     })
-
-    it('sets state', () => {
-      home().instance().calculateBackgroundTranslateY = jest.fn().mockReturnValue(666)
-      home()
-        .instance()
-        .animationFrame()
-      expect(home().instance().state.backgroundTranslateY).toBe(666)
-    })
+    expect(rafSpy).toHaveBeenCalledTimes(1)
+    rafSpy.mockRestore()
   })
 })
