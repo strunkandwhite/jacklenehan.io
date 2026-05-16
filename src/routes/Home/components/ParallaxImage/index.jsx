@@ -1,7 +1,6 @@
 import Image from 'next/image'
-import PropTypes from 'prop-types'
 
-const ParallaxImage = ({ src, translateY, imageRef }) => (
+const ParallaxImage = ({ src, translateY, imageRef = null }) => (
   <Image
     ref={imageRef}
     src={src}
@@ -14,15 +13,5 @@ const ParallaxImage = ({ src, translateY, imageRef }) => (
     className="parallax"
   />
 )
-
-ParallaxImage.propTypes = {
-  src: PropTypes.string.isRequired,
-  translateY: PropTypes.number.isRequired,
-  imageRef: PropTypes.object,
-}
-
-ParallaxImage.defaultProps = {
-  imageRef: null,
-}
 
 export default ParallaxImage
