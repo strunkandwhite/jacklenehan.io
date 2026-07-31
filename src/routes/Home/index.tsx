@@ -17,7 +17,7 @@ interface HomeState {
   innerHeight: number
 }
 
-export default class Home extends Component<{}, HomeState> {
+export default class Home extends Component<Record<string, never>, HomeState> {
   ticking = false
   fromElement = createRef<HTMLElement>()
   parallaxImage = createRef<HTMLImageElement>()

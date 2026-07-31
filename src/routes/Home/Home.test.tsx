@@ -10,7 +10,9 @@ const mockFromElement = { offsetHeight: 720, offsetTop: 444 }
 
 beforeEach(() => {
   Object.defineProperty(window, 'innerHeight', { value: 954, writable: true })
-  jest.spyOn(React, 'createRef').mockReturnValue({ current: mockFromElement } as unknown as ReturnType<typeof React.createRef>)
+  jest
+    .spyOn(React, 'createRef')
+    .mockReturnValue({ current: mockFromElement } as unknown as ReturnType<typeof React.createRef>)
 })
 
 afterEach(() => {
